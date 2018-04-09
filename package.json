@@ -1,6 +1,6 @@
 {
   "name": "uiautomator-wrapper",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "NodeJS wrapper for UiAutomator",
   "main": "index.js",
   "scripts": {
@@ -8,19 +8,29 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fmca/uiautomator.git"
+    "url": "git+https://github.com/goharanwar/uiautomator.git"
   },
-  "author": "Filipe Arruda",
+  "author": "Gohar Anwar",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/fmca/uiautomator/issues"
+    "url": "https://github.com/goharanwar/uiautomator/issues"
   },
-  "homepage": "https://github.com/fmca/uiautomator#readme",
+  "homepage": "https://github.com/goharanwar/uiautomator#readme",
   "dependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-config-airbnb-standard": "^1.6.6",
+    "eslint-plugin-import": "^2.10.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-react": "^7.7.0",
+    "eslint-plugin-standard": "^3.0.1",
     "humps": "^1.1.0",
     "request": "^2.72.0"
   },
   "devDependencies": {
     "async": "^2.0.0-rc.5"
-  }
+  },
+  "keywords": []
 }

@@ -1,0 +1,18 @@
+{
+  "extends": ["airbnb-standard"],
+  "rules": {
+    "max-len": "off",
+    "consistent-return": "off",
+    "no-continue": "off",
+    "no-await-in-loop": "off",
+    "no-param-reassign": "off",
+    "no-restricted-syntax": "off",
+    "guard-for-in": "off",
+    "prefer-destructuring": "off",
+    "padded-blocks": ["error", "always"],
+    "no-underscore-dangle": "off",
+    "no-console":"off",
+    "no-new-wrappers":"off",
+    "no-bitwise":"off"
+  }
+}

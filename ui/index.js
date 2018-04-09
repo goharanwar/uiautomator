@@ -1,1 +1,1 @@
-exports.Device = require("./device").Device;
+exports.Device = require('./device').Device;
