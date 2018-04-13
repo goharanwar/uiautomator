@@ -1,4 +1,3 @@
-
 const humps = require('humps');
 const Server = require('../communication');
 const Selector = require('./selector');
@@ -10,7 +9,7 @@ class Device {
     const pressKeyMethods = ['home', 'volumeUp', 'volumeDown', 'volumeMute', 'back', 'right', 'left',
       'up', 'down', 'menu', 'search', 'center', 'enter', 'delete', 'recent', 'camera', 'power'
     ];
-    const aloneMethods = ['wakeUp', 'sleep', 'openNotification', 'openQuickSettings'];
+    const aloneMethods = ['wakeUp', 'sleep', 'openNotification', 'openQuickSettings', 'isScreenOn'];
     this._register(pressKeyMethods, 'pressKey');
     this._register(aloneMethods);
     const self = this;
@@ -47,6 +46,18 @@ class Device {
 
   }
 
+  dump (compressed, cb) {
+
+    this._server.send('dumpWindowHierarchy', [compressed], cb);
+
+  }
+
+  screenshot (filename, scale, quality, cb) {
+
+    this._server.send('takeScreenshot', [filename, scale, quality], cb);
+
+  }
+
   _register (methods, prefix) {
 
     for (const index in methods) {
@@ -55,7 +66,7 @@ class Device {
       const decamelizedMethodName = humps.decamelize(methodName);
       if (prefix) {
 
-        this[methodName] = function (cb) {
+        this[methodName] = function createMethodWithPrefix (cb) {
 
           this._server.send(prefix, [decamelizedMethodName], cb);
 
@@ -63,7 +74,7 @@ class Device {
 
       } else {
 
-        this[methodName] = function (cb) {
+        this[methodName] = function createMethod (cb) {
 
           this._server.send(methodName, [], cb);
 

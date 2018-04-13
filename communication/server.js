@@ -1,4 +1,3 @@
-
 const path = require('path');
 const fs = require('fs');
 const request = require('request');
@@ -7,7 +6,7 @@ const Setup = require('./setup');
 
 const defaultOptions = {
   hostname: 'localhost',
-  delay: 500,
+  commadsExecutionDelay: 10,
   port: 9008,
   devicePort: 9008,
   connectionMaxTries: 5,
@@ -87,7 +86,7 @@ class Server {
 
       });
 
-    }, this.options);
+    }, this.options.connectionTriesDelay);
 
   }
 
@@ -148,7 +147,7 @@ class Server {
         }
       );
 
-    }, self.options.delay);
+    }, self.options.commadsExecutionDelay);
 
   }
 

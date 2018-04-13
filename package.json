@@ -1,7 +1,7 @@
 {
-  "name": "uiautomator-wrapper",
+  "name": "uiautomator-server",
   "version": "0.0.6",
-  "description": "NodeJS wrapper for UiAutomator",
+  "description": "NodeJS UiAutomator wrapper with built in server ",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,6 +17,12 @@
   },
   "homepage": "https://github.com/goharanwar/uiautomator#readme",
   "dependencies": {
+    "humps": "^1.1.0",
+    "request": "^2.72.0",
+    "semver": "^5.5.0"
+  },
+  "devDependencies": {
+    "async": "^2.0.0-rc.5",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-config-airbnb-standard": "^1.6.6",
@@ -25,12 +31,13 @@
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-promise": "^3.7.0",
     "eslint-plugin-react": "^7.7.0",
-    "eslint-plugin-standard": "^3.0.1",
-    "humps": "^1.1.0",
-    "request": "^2.72.0"
+    "eslint-plugin-standard": "^3.0.1"
   },
-  "devDependencies": {
-    "async": "^2.0.0-rc.5"
+  "engines": {
+    "node": "^8.9.4"
   },
-  "keywords": []
+  "keywords": [
+    "uiautomator",
+    "uiautomator-server"
+  ]
 }
