@@ -32,17 +32,22 @@ const options = {
     serial: '192.168.57.101:5555'
 }
 
-new UIAutomator((error, device) => {
-    /* ... */
+const myDevice = new UIAutomator((error, device) => {
+
+    // This callback will be called when the connection with the device has been established.
+    // You can even save the device object at class level (using this) or globally (if you really wish) to use it later at other places
+
 }, options);
 ```
 
-Default options:
+**Default options:**
+
+These are the default options. You can override them as needed
 
 ```javascript
 {
     hostname: 'localhost',
-    commandsDelay: 10, //delay between commands in milli seconds
+    commadsExecutionDelay: 10, //delay between commands in ms
     port: 9008,
     devicePort: 9008,
     connectionMaxTries: 5,
