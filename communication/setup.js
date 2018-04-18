@@ -38,8 +38,9 @@ class Setup {
 
       for (const index in this._apks) {
 
-        proc.execSync(['adb', 'install']
+        proc.execSync(['adb']
           .concat(this._serialArr())
+          .concat(['install -t -r'])
           .concat([this._apks[index]]).join(' '));
 
       }
