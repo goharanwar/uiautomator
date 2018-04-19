@@ -44,7 +44,17 @@ class Server {
     });
 
   }
-  stop () {
+  stop (cb) {
+
+    this._setup.process().on('close', (code) => {
+
+      if (cb) {
+
+        cb(code);
+
+      }
+
+    });
 
     request.get(this.stop_url, {}, (err, body, result) => {
 

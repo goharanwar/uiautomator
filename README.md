@@ -62,8 +62,17 @@ These are the default options. You can override them as needed
 * Device info
 
     ```javascript
-    device.info((error, info) => {})
+    device.info((error, info) => {});
     ```
+* Stop UiAutomator on device
+    ``` javascript
+    device.stop(() => {
+
+        //Kills the ui automaorprocess on device
+        console.log(Successfully stopped UiAutomator server process on device);
+    });
+    ```
+
 * UI heirarchy Dump
 
     ```javascript
@@ -72,7 +81,7 @@ These are the default options. You can override them as needed
      */
     device.dump(false, (error, xmlString) => {
       console.log(`XML Dump : ${xmlString}`)
-    })
+    });
     ```
 
 * Take Screenshot
@@ -86,7 +95,8 @@ These are the default options. You can override them as needed
     device.screenshot('screenshot.png', 1, 100, (error, filePath) => {
       console.log(`Screenshot save at : ${filePath}`);
       //You will have to pull the file manually using adb
-    })
+    });
+    ```
 * Key events
     ```javascript
     //Press home
