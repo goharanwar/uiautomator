@@ -31,8 +31,8 @@ class Server {
     this._callbacks = {};
     this._setup = new Setup(
       [
-        getPath('../libs/app.apk'),
-        getPath('../libs/app-test.apk')],
+        getPath('../libs/app-uiautomator.apk'),
+        getPath('../libs/app-uiautomator-test.apk')],
       this.options
     );
     this._connectionTries = 0;
