@@ -46,13 +46,7 @@ class Server {
   }
   stop (cb) {
 
-    this._setup.process().on('close', (code) => {
-
-      if (cb) {
-
-        cb(code);
-
-      }
+    this._setup.process().on('close', () => {
 
     });
 
@@ -65,6 +59,15 @@ class Server {
     });
     this._setup.process().stdin.pause();
     this._setup.process().kill();
+
+    // Cleanup: Remove the installed apks
+    this._setup.removeAlreadyInstalledApks();
+
+    if (cb) {
+
+      cb();
+
+    }
 
   }
 

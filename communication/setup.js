@@ -23,6 +23,19 @@ class Setup {
 
   _installIfNecessary () {
 
+    for (const index in this._apks) {
+
+      proc.execSync(['adb']
+        .concat(this._serialArr())
+        .concat(['install -t -r'])
+        .concat([this._apks[index]]).join(' '));
+
+    }
+
+  }
+
+  _installedApks () {
+
     const packages = new String(proc.execSync(['adb']
       .concat(this._serialArr())
       .concat(['shell pm list packages'])
@@ -38,19 +51,38 @@ class Setup {
       hasTestApp |= pkg.indexOf('com.github.uiautomator.test') >= 0;
 
     }
+    return {
+      app: hasApp,
+      testApp: hasTestApp
+    };
 
-    if (!hasApp || !hasTestApp) {
+  }
 
-      for (const index in this._apks) {
+  removeAlreadyInstalledApks () {
 
-        proc.execSync(['adb']
-          .concat(this._serialArr())
-          .concat(['install -t -r'])
-          .concat([this._apks[index]]).join(' '));
+    const installedApps = this._installedApks();
 
-      }
+    if (installedApps.app) {
+
+      console.log('Uninstalling uiautomator ');
+      proc.execSync(['adb']
+        .concat(this._serialArr())
+        .concat(['shell pm uninstall -k --user 0 com.github.uiautomator'])
+        .join(' '));
 
     }
+
+    if (installedApps.testApp) {
+
+      console.log('Uninstalling uiautomator test');
+      proc.execSync(['adb']
+        .concat(this._serialArr())
+        .concat(['shell pm uninstall -k --user 0 com.github.uiautomator.test'])
+        .join(' '));
+
+    }
+
+    return true;
 
   }
 
