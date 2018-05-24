@@ -18,10 +18,10 @@
   "homepage": "https://github.com/goharanwar/uiautomator#readme",
   "dependencies": {
     "humps": "^1.1.0",
-    "request": "^2.86.0"
+    "request": "^2.87.0"
   },
   "devDependencies": {
-    "async": "^2.0.0-rc.5",
+    "async": "^2.6.1",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-config-airbnb-standard": "^1.6.6",

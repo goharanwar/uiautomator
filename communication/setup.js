@@ -23,6 +23,8 @@ class Setup {
 
   _installIfNecessary () {
 
+    this.removeAlreadyInstalledApks();
+
     for (const index in this._apks) {
 
       proc.execSync(['adb']
@@ -64,7 +66,6 @@ class Setup {
 
     if (installedApps.app) {
 
-      console.log('Uninstalling uiautomator ');
       proc.execSync(['adb']
         .concat(this._serialArr())
         .concat(['shell pm uninstall -k --user 0 com.github.uiautomator'])
@@ -74,7 +75,6 @@ class Setup {
 
     if (installedApps.testApp) {
 
-      console.log('Uninstalling uiautomator test');
       proc.execSync(['adb']
         .concat(this._serialArr())
         .concat(['shell pm uninstall -k --user 0 com.github.uiautomator.test'])
