@@ -1,3 +1,22 @@
+<a name="2.0.0"></a>
+# [2.0.0](https://github.com/goharanwar/uiautomator/compare/1.3.2...2.0.0) (2018-05-25)
+
+
+### Breaking
+
+* All methods now return promises (fixes #7) ([c2446c658c17ff166a7302f0361daec9e6c15849](https://github.com/goharanwar/uiautomator/commit/c2446c658c17ff166a7302f0361daec9e6c15849)), closes [#7](https://github.com/goharanwar/uiautomator/issues/7)
+
+### Docs
+
+* Add change log file for the repo (fixes #9) ([153a75f80bee2597a366d0024f23a039d380943a](https://github.com/goharanwar/uiautomator/commit/153a75f80bee2597a366d0024f23a039d380943a)), closes [#9](https://github.com/goharanwar/uiautomator/issues/9)
+* Updat doc to reflect the refactoring changes (refs #7) ([61adec2d9dc5400abf4f2df4b646977d8fc76f5c](https://github.com/goharanwar/uiautomator/commit/61adec2d9dc5400abf4f2df4b646977d8fc76f5c)), closes [#7](https://github.com/goharanwar/uiautomator/issues/7)
+
+### Update
+
+* Add option to keep apks on device (fixes #8) ([412145d50645d0002a381896c92567722a2edbde](https://github.com/goharanwar/uiautomator/commit/412145d50645d0002a381896c92567722a2edbde)), closes [#8](https://github.com/goharanwar/uiautomator/issues/8)
+
+
+
 <a name="1.3.2"></a>
 ## <small>1.3.2 (2018-05-24)</small>
 
