@@ -17,15 +17,15 @@ class Device {
 
   }
 
-  connect () {
+  connect (keepApks) {
 
-    return this._server.start();
+    return this._server.start(keepApks);
 
   }
 
-  stop () {
+  stop (keepApks) {
 
-    return this._server.stop();
+    return this._server.stop(keepApks);
 
   }
 

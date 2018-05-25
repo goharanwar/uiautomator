@@ -12,11 +12,11 @@ class Setup {
 
   }
 
-  async init () {
+  async init (keepApks) {
 
     try {
 
-      this._installIfNecessary();
+      this._installIfNecessary(keepApks);
       this._forward();
       this._start();
       return true;
@@ -29,10 +29,24 @@ class Setup {
 
   }
 
-  _installIfNecessary () {
+  _installIfNecessary (keepApks) {
 
-    // Perform clean install
-    this.removeAlreadyInstalledApks();
+    const installedApps = this.getInstalledApks();
+
+    if (!keepApks) {
+
+      this.removeAlreadyInstalledApks(installedApps.app, installedApps.testApp);
+      this.installApks();
+
+    } else if (!installedApps.app || !installedApps.testApp) {
+
+      this.installApks();
+
+    }
+
+  }
+
+  installApks () {
 
     for (const index in this._apks) {
 
@@ -45,7 +59,7 @@ class Setup {
 
   }
 
-  _installedApks () {
+  getInstalledApks () {
 
     const packages = new String(proc.execSync(['adb']
       .concat(this._serialArr())
@@ -69,11 +83,9 @@ class Setup {
 
   }
 
-  removeAlreadyInstalledApks () {
+  removeAlreadyInstalledApks (app, testApp) {
 
-    const installedApps = this._installedApks();
-
-    if (installedApps.app) {
+    if (app) {
 
       proc.execSync(['adb']
         .concat(this._serialArr())
@@ -82,7 +94,7 @@ class Setup {
 
     }
 
-    if (installedApps.testApp) {
+    if (testApp) {
 
       proc.execSync(['adb']
         .concat(this._serialArr())

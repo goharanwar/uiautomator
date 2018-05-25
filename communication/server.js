@@ -35,10 +35,10 @@ class Server {
 
   }
 
-  start () {
+  start (keepApks) {
 
     const self = this;
-    return self._setup.init()
+    return self._setup.init(keepApks)
       .then(() => self.verifyConnection());
 
   }
@@ -50,10 +50,11 @@ class Server {
       request.get(this.stop_url, {}, () => {});
       this._setup.process().stdin.pause();
       this._setup.process().kill();
-      // Cleanup: Remove the installed apks
       if (!keepApks) {
 
-        this._setup.removeAlreadyInstalledApks();
+        const installedApps = this._setup.getInstalledApks();
+
+        this._setup.removeAlreadyInstalledApks(installedApps.app, installedApps.testApp);
 
       }
       return true;
