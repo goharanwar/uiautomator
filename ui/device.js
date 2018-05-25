@@ -2,83 +2,76 @@ const humps = require('humps');
 const Server = require('../communication');
 const Selector = require('./selector');
 
+const pressKeyMethods = ['home', 'volumeUp', 'volumeDown', 'volumeMute', 'back', 'right', 'left',
+  'up', 'down', 'menu', 'search', 'center', 'enter', 'delete', 'recent', 'camera', 'power'
+];
+const aloneMethods = ['wakeUp', 'sleep', 'openNotification', 'openQuickSettings', 'isScreenOn'];
+
 class Device {
 
-  constructor (cb, options) {
+  constructor (options) {
 
-    const pressKeyMethods = ['home', 'volumeUp', 'volumeDown', 'volumeMute', 'back', 'right', 'left',
-      'up', 'down', 'menu', 'search', 'center', 'enter', 'delete', 'recent', 'camera', 'power'
-    ];
-    const aloneMethods = ['wakeUp', 'sleep', 'openNotification', 'openQuickSettings', 'isScreenOn'];
     this._register(pressKeyMethods, 'pressKey');
     this._register(aloneMethods);
-    const self = this;
-    this._server = new Server((err, data) => {
-
-      cb(err, self);
-
-    }, options);
+    this._server = new Server(options);
 
   }
 
-  stop (cb) {
+  connect () {
 
-    this._server.stop(cb);
+    return this._server.start();
 
   }
 
-  isConnected (cb) {
+  stop () {
 
-    this._server.isAlive(cb);
+    return this._server.stop();
+
+  }
+
+  isConnected () {
+
+    return this._server.isAlive();
 
   }
 
   click (selector, cb) {
 
     const preparedSelector = new Selector(selector);
-    this._server.send('click', [preparedSelector], cb);
+    return this._server.send('click', [preparedSelector]);
 
   }
 
-  info (cb) {
+  info () {
 
-    this._server.send('deviceInfo', [], cb);
-
-  }
-
-  dump (compressed, cb) {
-
-    this._server.send('dumpWindowHierarchy', [compressed], cb);
+    return this._server.send('deviceInfo', []);
 
   }
 
-  screenshot (filename, scale, quality, cb) {
+  dump (compressed) {
 
-    this._server.send('takeScreenshot', [filename, scale, quality], cb);
+    return this._server.send('dumpWindowHierarchy', [compressed]);
+
+  }
+
+  screenshot (filename, scale, quality) {
+
+    return this._server.send('takeScreenshot', [filename, scale, quality]);
 
   }
 
   _register (methods, prefix) {
 
-    for (const index in methods) {
+    for (const method of methods) {
 
-      const methodName = methods[index];
-      const decamelizedMethodName = humps.decamelize(methodName);
+      const decamelizedMethodName = humps.decamelize(method);
       if (prefix) {
 
-        this[methodName] = function createMethodWithPrefix (cb) {
-
-          this._server.send(prefix, [decamelizedMethodName], cb);
-
-        };
+        this[method] = () => this._server.send(prefix, [decamelizedMethodName]);
 
       } else {
 
-        this[methodName] = function createMethod (cb) {
-
-          this._server.send(methodName, [], cb);
-
-        };
+        this[method] = () => this._server.send(method, []);
 
       }
 

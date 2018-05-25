@@ -13,22 +13,18 @@ const defaultOptions = {
   connectionTriesDelay: 1000
 };
 
-const getPath = function getPath (relativePath) {
-
-  return path.join(path.dirname(fs.realpathSync(__filename)), relativePath);
-
-};
+const getPath = relativePath => path.join(path.dirname(fs.realpathSync(__filename)), relativePath);
 
 class Server {
 
-  constructor (cb, newOptions) {
+  constructor (newOptions) {
 
     this.options = Object.assign({}, defaultOptions, newOptions);
     this.url = url.format({ protocol: 'http', hostname: this.options.hostname, port: this.options.port });
     this.jsonrpc_url = url.resolve(this.url, '/jsonrpc/0');
     this.stop_url = url.resolve(this.url, '/stop');
     this._counter = 0;
-    this._callbacks = {};
+    // this._callbacks = {};
     this._setup = new Setup(
       [
         getPath('../libs/app-uiautomator.apk'),
@@ -36,131 +32,128 @@ class Server {
       this.options
     );
     this._connectionTries = 0;
-    this._responseCallback = cb;
-    this._setup.init(() => {
-
-      this.verifyConnection();
-
-    });
 
   }
-  stop (cb) {
 
-    this._setup.process().on('close', () => {
+  start () {
 
-    });
+    const self = this;
+    return self._setup.init()
+      .then(() => self.verifyConnection());
 
-    request.get(this.stop_url, {}, (err, body, result) => {
+  }
 
-      if (err) {
-        // Error occured
+  async stop (keepApks) {
+
+    try {
+
+      request.get(this.stop_url, {}, () => {});
+      this._setup.process().stdin.pause();
+      this._setup.process().kill();
+      // Cleanup: Remove the installed apks
+      if (!keepApks) {
+
+        this._setup.removeAlreadyInstalledApks();
+
       }
+      return true;
 
-    });
-    this._setup.process().stdin.pause();
-    this._setup.process().kill();
+    } catch (error) {
 
-    // Cleanup: Remove the installed apks
-    this._setup.removeAlreadyInstalledApks();
-
-    if (cb) {
-
-      cb();
+      throw new Error(`uiautomator-server: Failed to stop uiautomator json-prc server on device ${error.message || error}`);
 
     }
 
   }
 
-  verifyConnection () {
+  async verifyConnection () {
 
-    const self = this;
-    setTimeout(() => {
+    try {
 
-      self.isAlive((err, result) => {
+      const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+      await delay(this.options.connectionTriesDelay);
+      const isAlive = await this.isAlive();
+      if (isAlive) {
 
-        if (err) {
+        return this;
 
-          if (self.connectionTries > self.options.connectionMaxTries) {
+      }
+      if (this._connectionTries > this.options.connectionMaxTries) {
 
-            self._responseCallback(err, this);
+        throw new Error(`uiautomator-server: Failed to start json-prc server on device`);
 
-          } else {
+      } else {
 
-            self.connectionTries += 1;
-            self.verifyConnection();
+        this._connectionTries += 1;
+        this.verifyConnection();
 
-          }
+      }
 
-        } else {
+    } catch (error) {
 
-          self._responseCallback(err, this);
+      throw new Error(`uiautomator-server: Failed to start json-prc server on device ${error.message || error}`);
 
-        }
-
-      });
-
-    }, this.options.connectionTriesDelay);
+    }
 
   }
 
-  isAlive (cb) {
+  isAlive () {
 
-    request.post(this.jsonrpc_url, {
-      json: {
-        jsonrpc: '2.0',
-        method: 'ping',
-        params: [],
-        id: '1'
-      }
-    }, (err, res, body) => {
+    return new Promise((resolve) => {
 
-      cb(err, body && body.result === 'pong');
+      request.post(this.jsonrpc_url, {
+        json: {
+          jsonrpc: '2.0',
+          method: 'ping',
+          params: [],
+          id: '1'
+        }
+      }, (err, res, body) => resolve(!err && body && body.result === 'pong'));
 
     });
 
   }
 
-  send (method, extraParams, cb) {
+  async send (method, extraParams) {
 
-    this._counter = this._counter + 1;
-    const params = {
-      jsonrpc: '2.0',
-      method,
-      params: extraParams,
-      id: this._counter
-    };
-    const self = this;
-    self._callbacks[params.id] = cb;
-    setTimeout(() => {
+    try {
+
+      this._counter = this._counter + 1;
+      const params = {
+        jsonrpc: '2.0',
+        method,
+        params: extraParams,
+        id: this._counter
+      };
+      const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+      await delay(this.options.commadsExecutionDelay);
+      const response = await this._post({ json: params });
+      return response;
+
+    } catch (error) {
+
+      throw new Error(error);
+
+    }
+
+  }
+
+  _post (object) {
+
+    return new Promise((resolve, reject) => {
 
       request.post(
-        this.jsonrpc_url, { json: params },
+        this.jsonrpc_url, object,
         (err, res, body) => {
 
-          if (err) {
-
-            console.error('FATAL ERROR', err);
-
-          } else {
-
-            const cb2 = self._callbacks[body.id];
-            delete self._callbacks[body.id];
-            if (body.error) {
-
-              cb2(body.error, undefined);
-
-            } else {
-
-              cb2(undefined, body.result);
-
-            }
-
-          }
+          if (err) return reject(err);
+          if (body.error) return reject(body.error);
+          return resolve(body.result);
 
         }
       );
 
-    }, self.options.commadsExecutionDelay);
+    });
 
   }
 

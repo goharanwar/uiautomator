@@ -12,17 +12,26 @@ class Setup {
 
   }
 
-  init (cb) {
+  async init () {
 
-    this._installIfNecessary();
-    this._forward();
-    this._start();
-    cb();
+    try {
+
+      this._installIfNecessary();
+      this._forward();
+      this._start();
+      return true;
+
+    } catch (error) {
+
+      throw new Error(error);
+
+    }
 
   }
 
   _installIfNecessary () {
 
+    // Perform clean install
     this.removeAlreadyInstalledApks();
 
     for (const index in this._apks) {
@@ -68,7 +77,7 @@ class Setup {
 
       proc.execSync(['adb']
         .concat(this._serialArr())
-        .concat(['shell pm uninstall -k --user 0 com.github.uiautomator'])
+        .concat(['shell pm uninstall com.github.uiautomator'])
         .join(' '));
 
     }
@@ -77,7 +86,7 @@ class Setup {
 
       proc.execSync(['adb']
         .concat(this._serialArr())
-        .concat(['shell pm uninstall -k --user 0 com.github.uiautomator.test'])
+        .concat(['shell pm uninstall com.github.uiautomator.test'])
         .join(' '));
 
     }
