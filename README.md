@@ -16,14 +16,12 @@ npm install uiautomator-server
 ```javascript
 const UIAutomator = require('uiautomator-server');
 
-const myDevice = new UIAutomator((error, device) => {
-    device.click({description: 'Apps'}, (error, result) => {
-        //Handle result
-        device.info((error, info) => {
-            console.log(error, info);
-        })
-    });
-});
+const device = new UIAutomator();
+await device.connect();
+await device.click({description: 'Apps'});
+const deviceInfo = await device.info();
+console.log(deviceInfo);
+
 ```
 
 ## Device setup
@@ -34,12 +32,9 @@ const options = {
     serial: '192.168.57.101:5555'
 }
 
-const myDevice = new UIAutomator((error, device) => {
+const device = new UIAutomator(options);
+await device.connect(); // This will start the uiautomator server on device. Now you can continue calling the api
 
-    // This callback will be called when the connection with the device has been established.
-    // You can even save the device object at class level (using this) or globally (if you really wish) to use it later at other places
-
-}, options);
 ```
 
 **Default options:**
@@ -49,7 +44,7 @@ These are the default options. You can override them as needed
 ```javascript
 {
     hostname: 'localhost',
-    commadsExecutionDelay: 10, //delay between commands in ms
+    commadsExecutionDelay: 10, //Delay between commands in ms
     port: 9008,
     devicePort: 9008,
     connectionMaxTries: 5,
@@ -61,29 +56,41 @@ These are the default options. You can override them as needed
 
 ### API
 
+* Device connect
+
+    ```javascript
+    /* @param {Boolean} keepApks - Optional. Send true if you dont want to uninstall existing uiautomator-server apks on device. Default value is false. If false, it will remove the existing uiautomator-server apks (if any) and reinstall them
+     * @returns {Promise}
+     */
+    device.connect(keepApks);
+    ```
 * Device info
 
     ```javascript
-    device.info((error, info) => {});
+    /*
+     * @returns {Promise} - resolves with device info object
+     */
+    device.info();
     ```
 * Stop UIAutomator on device
     ``` javascript
-    device.stop(() => {
-
-        //Kills the uiautomator process on device
-        console.log('Successfully stopped UIAutomator server process on device');
-    });
+    /* Kills the uiautomator process on device
+     * @param {Boolean} keepApks - Optional. Send true if you dont want to uninstall existing uiautomator-server apks on device. Default value is false. If false, it will remove the existing uiautomator-server apks (if any) on stop.
+     * @returns {Promise}
+     */
+    device.stop(keepApks);
     ```
 
 * UI Heirarchy Dump
 
     ```javascript
     /* @param {Boolean} compressed - Whether you want compressed xml
-     * @param {Function} - Callback function
+     * @returns {Promise} - resolves with ui heirarchy dump as a string
      */
-    device.dump(false, (error, xmlString) => {
-      console.log(`XML Dump : ${xmlString}`)
-    });
+    device.dump(false);
+
+    <!-- Example: -->
+    const xmlDumpString = await device.dump(false);
     ```
 
 * Take Screenshot
@@ -92,19 +99,17 @@ These are the default options. You can override them as needed
     /* @param {String} fileName - Target file name with extension
      * @param {Number} Scale - Image scale factor
      * @param {Number} ImageQuality
-     * @param {Function} - Callback function
+     * @returns {Promise} - resolves with screenshot filepath on device
      */
-    device.screenshot('screenshot.png', 1, 100, (error, filePath) => {
-      console.log(`Screenshot saved at : ${filePath}`);
-      //You will have to pull the screenshot file manually using adb e.g `adb pull ${filePath}`
-    });
+    device.screenshot('screenshot.png', 1, 100);
+    //You will have to pull the screenshot file manually using adb
     ```
 * Key events
     ```javascript
     //Press home
-    device.home(callback)
+    device.home()
     //Press back
-    device.back(callback)
+    device.back()
     ```
   * All key functions:
 
@@ -128,7 +133,7 @@ These are the default options. You can override them as needed
 
 * Selectors
     ```javascript
-    device.click({description: 'Apps'}, callback);
+    device.click({description: 'Apps'});
     ```
   * Supported Selectors:
     * `text`
