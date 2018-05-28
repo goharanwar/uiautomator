@@ -1,3 +1,13 @@
+<a name="2.0.1"></a>
+## [2.0.1](https://github.com/goharanwar/uiautomator/compare/2.0.0...2.0.1) (2018-05-28)
+
+
+### Fix
+
+* Connection retry count not getting reset properly (fixes #10) ([8af2322383e3172a49cf7058e53f05d670a9bbd0](https://github.com/goharanwar/uiautomator/commit/8af2322383e3172a49cf7058e53f05d670a9bbd0)), closes [#10](https://github.com/goharanwar/uiautomator/issues/10)
+
+
+
 <a name="2.0.0"></a>
 # [2.0.0](https://github.com/goharanwar/uiautomator/compare/1.3.2...2.0.0) (2018-05-25)
 
