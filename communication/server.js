@@ -24,7 +24,6 @@ class Server {
     this.jsonrpc_url = url.resolve(this.url, '/jsonrpc/0');
     this.stop_url = url.resolve(this.url, '/stop');
     this._counter = 0;
-    // this._callbacks = {};
     this._setup = new Setup(
       [
         getPath('../libs/app-uiautomator.apk'),
@@ -76,11 +75,13 @@ class Server {
       const isAlive = await this.isAlive();
       if (isAlive) {
 
+        this._connectionTries = 0;
         return this;
 
       }
       if (this._connectionTries > this.options.connectionMaxTries) {
 
+        this._connectionTries = 0;
         throw new Error(`uiautomator-server: Failed to start json-prc server on device`);
 
       } else {
@@ -92,7 +93,7 @@ class Server {
 
     } catch (error) {
 
-      throw new Error(`uiautomator-server: Failed to start json-prc server on device ${error.message || error}`);
+      throw new Error(error.message || error);
 
     }
 
