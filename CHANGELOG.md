@@ -1,3 +1,17 @@
+<a name="2.1.0"></a>
+# [2.1.0](https://github.com/goharanwar/uiautomator/compare/2.0.1...2.1.0) (2018-08-30)
+
+
+### Fix
+
+* Sometimes promise is returned even before the server is ready on device (fixes #13) ([45e478dcb9ac8560d13d8f04638464de5096166d](https://github.com/goharanwar/uiautomator/commit/45e478dcb9ac8560d13d8f04638464de5096166d)), closes [#13](https://github.com/goharanwar/uiautomator/issues/13)
+
+### Upgrade
+
+* Update uiautomator version to 2.1.3 (fixes #12) ([5b50fa6db72abfd94df6aeefa2ba5d378e82ed8e](https://github.com/goharanwar/uiautomator/commit/5b50fa6db72abfd94df6aeefa2ba5d378e82ed8e)), closes [#12](https://github.com/goharanwar/uiautomator/issues/12)
+
+
+
 <a name="2.0.1"></a>
 ## [2.0.1](https://github.com/goharanwar/uiautomator/compare/2.0.0...2.0.1) (2018-05-28)
 
