@@ -87,7 +87,7 @@ class Server {
       } else {
 
         this._connectionTries += 1;
-        this.verifyConnection();
+        await this.verifyConnection();
 
       }
 
