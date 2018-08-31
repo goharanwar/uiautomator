@@ -1,3 +1,13 @@
+<a name="2.3.0"></a>
+# [2.3.0](https://github.com/goharanwar/uiautomator/compare/2.2.0...2.3.0) (2018-08-31)
+
+
+### Upgrade
+
+* Add support for drag action (fixes#16) ([ae301137f94452797db82d30eb2e270fff5e49ca](https://github.com/goharanwar/uiautomator/commit/ae301137f94452797db82d30eb2e270fff5e49ca)), closes [fixes#16](https://github.com/fixes/issues/16) [#15](https://github.com/goharanwar/uiautomator/issues/15)
+
+
+
 <a name="2.2.0"></a>
 # [2.2.0](https://github.com/goharanwar/uiautomator/compare/2.1.0...2.2.0) (2018-08-31)
 
