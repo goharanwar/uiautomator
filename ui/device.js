@@ -48,6 +48,18 @@ class Device {
 
   }
 
+  swipe (startX, startY, endX, endY, steps) {
+
+    return this._server.send('swipe', [startX, startY, endX, endY, (steps || 100)]);
+
+  }
+
+  drag (startX, startY, endX, endY, steps) {
+
+    return this._server.send('drag', [startX, startY, endX, endY, (steps || 100)]);
+
+  }
+
   info () {
 
     return this._server.send('deviceInfo', []);

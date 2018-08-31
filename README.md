@@ -138,6 +138,27 @@ These are the default options. You can override them as needed
   device.click(x, y);
   ```
 
+* Swipe
+
+  ```javascript
+  // swipe from (startX, startY) to (endX, endY)
+  device.swipe(startX, startY, endX, endY)
+  // swipe from (startX, startY) to (endX, endY) with 10 steps
+  const steps = 10
+  device.swipe(startX, startY, endX, endY, steps)
+  ```
+
+* Drag
+
+  ```javascript
+  // drag from (startX, startY) to (endX, endY)
+  device.drag(startX, startY, endX, endY)
+  // drag from (startX, startY) to (endX, endY) with 10 steps
+  const steps = 10
+  device.drag(startX, startY, endX, endY, steps)
+  ```
+
+
 
 * Selectors
     ```javascript
