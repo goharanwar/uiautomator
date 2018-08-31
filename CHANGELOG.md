@@ -1,3 +1,13 @@
+<a name="2.2.0"></a>
+# [2.2.0](https://github.com/goharanwar/uiautomator/compare/2.1.0...2.2.0) (2018-08-31)
+
+
+### Upgrade
+
+* Add support for clicking on x, y coordinates on screen (fixes #14) ([12f383e00bd99c45a034eeb54e1b77a5af54d7ce](https://github.com/goharanwar/uiautomator/commit/12f383e00bd99c45a034eeb54e1b77a5af54d7ce)), closes [#14](https://github.com/goharanwar/uiautomator/issues/14)
+
+
+
 <a name="2.1.0"></a>
 # [2.1.0](https://github.com/goharanwar/uiautomator/compare/2.0.1...2.1.0) (2018-08-30)
 
