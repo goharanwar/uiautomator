@@ -131,6 +131,14 @@ These are the default options. You can override them as needed
     * `camera`
     * `power`
 
+* Click the screen
+
+  ```javascript
+  // click (x, y) on screen
+  device.click(x, y);
+  ```
+
+
 * Selectors
     ```javascript
     device.click({description: 'Apps'});

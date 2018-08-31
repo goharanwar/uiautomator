@@ -35,8 +35,14 @@ class Device {
 
   }
 
-  click (selector, cb) {
+  click (selector, y) {
 
+    // If we have two paramenters that means we want to tap on coordinates
+    if (y) {
+
+      return this._server.send('click', [selector, y]);
+
+    }
     const preparedSelector = new Selector(selector);
     return this._server.send('click', [preparedSelector]);
 
