@@ -1,3 +1,13 @@
+<a name="2.4.0"></a>
+# [2.4.0](https://github.com/goharanwar/uiautomator/compare/2.3.0...2.4.0) (2018-10-17)
+
+
+### Upgrade
+
+* Add support to save screenshot in external storage (fixes#17) ([9b4ec6783ff2e23e7321db321caff39bbe91de41](https://github.com/goharanwar/uiautomator/commit/9b4ec6783ff2e23e7321db321caff39bbe91de41)), closes [fixes#17](https://github.com/fixes/issues/17)
+
+
+
 <a name="2.3.0"></a>
 # [2.3.0](https://github.com/goharanwar/uiautomator/compare/2.2.0...2.3.0) (2018-08-31)
 
