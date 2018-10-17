@@ -3,7 +3,7 @@
 Light weight and robust NodeJS wrapper for UIAutomator2 with builtin server for device.
 It works on Android 4.1+ simply with Android device attached via adb, no need to install anything on Android device.
 
-*Note: This module is using UIAutomator version 2.1.2*
+*Note: This module is using UIAutomator version 2.1.3*
 
 ## Installation
 
@@ -99,9 +99,10 @@ These are the default options. You can override them as needed
     /* @param {String} fileName - Target file name with extension
      * @param {Number} Scale - Image scale factor
      * @param {Number} ImageQuality
+     * @param {Boolean} saveInExternalStorage - should save screenshot in external storage or not. Useful for phones (e.g Samsung S8, S6 - 7.0 API 24) which have permission issues
      * @returns {Promise} - resolves with screenshot filepath on device
      */
-    device.screenshot('screenshot.png', 1, 100);
+    device.screenshot('screenshot.png', 1, 100, saveInExternalStorage);
     //You will have to pull the screenshot file manually using adb
     ```
 * Key events
@@ -158,8 +159,6 @@ These are the default options. You can override them as needed
   device.drag(startX, startY, endX, endY, steps)
   ```
 
-
-
 * Selectors
     ```javascript
     device.click({description: 'Apps'});
@@ -190,14 +189,24 @@ These are the default options. You can override them as needed
     * `resourceIdMatches`
     * `index`
     * `instance`
+* Methods
+    ```javascript
+    device.openNotification();
+    ```
+  * Supported Methods:
+    * `wakeUp`
+    * `sleep`
+    * `openNotification`
+    * `openQuickSettings`
+    * `isScreenOn`
 
 ## Notes
 
 * More functions coming soon. Create ticket on github if you want some functionality on priority basis. You are welcome if you want to make contributions!
 * Android [uiautomator](https://developer.android.com/training/testing/ui-testing/index.html) works on Android 4.1+, so before using it, make sure your device is Android4.1+.
 * Some methods are only working on Android 4.2/4.3, so you'd better read detailed [java documentation of uiautomator](http://developer.android.com/tools/help/uiautomator/index.html) before using it.
-* The package uses [uiautomator-jsonrpc-server](https://github.com/xiaocong/android-uiautomator-server) as its daemon to communicate with devices.
+* The package uses [uiautomator-jsonrpc-server](https://github.com/goharanwar/android-uiautomator-server) as its daemon to communicate with devices.
 
 ### Acknowledgement
 
-This package is inspired by [xiaocong/uiautomator](https://github.com/xiaocong/uiautomator) python library.
+This package is inspired by [xiaocong/uiautomator](https://github.com/xiaocong/uiautomator).

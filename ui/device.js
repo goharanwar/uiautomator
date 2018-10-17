@@ -72,9 +72,9 @@ class Device {
 
   }
 
-  screenshot (filename, scale, quality) {
+  screenshot (filename, scale, quality, saveInExternalStorage) {
 
-    return this._server.send('takeScreenshot', [filename, scale, quality]);
+    return this._server.send('takeScreenshot', [filename, scale, quality, (saveInExternalStorage || false)]);
 
   }
 
