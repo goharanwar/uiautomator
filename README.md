@@ -1,5 +1,12 @@
 # uiautomator
 
+[![GitHub issues](https://img.shields.io/github/issues/goharanwar/uiautomator.svg)](https://github.com/goharanwar/uiautomator/issues)
+[![GitHub forks](https://img.shields.io/github/forks/goharanwar/uiautomator.svg)](https://github.com/goharanwar/uiautomator/network)
+[![GitHub stars](https://img.shields.io/github/stars/goharanwar/uiautomator.svg)](https://github.com/goharanwar/uiautomator/stargazers)
+[![GitHub license](https://img.shields.io/github/license/goharanwar/uiautomator.svg)](https://github.com/goharanwar/uiautomator/blob/master/LICENSE)
+[![Twitter](https://img.shields.io/twitter/url/https/github.com/goharanwar/uiautomator.svg?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2Fgoharanwar%2Fuiautomator)
+
+
 Light weight and robust NodeJS wrapper for UIAutomator2 with builtin server for device.
 It works on Android 4.1+ simply with Android device attached via adb, no need to install anything on Android device.
 
