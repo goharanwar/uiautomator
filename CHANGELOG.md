@@ -1,3 +1,17 @@
+<a name="2.4.1"></a>
+## [2.4.1](https://github.com/goharanwar/uiautomator/compare/2.4.0...2.4.1) (2018-11-21)
+
+
+### Docs
+
+* Added basic dynamic badges ([718e6aab3840562ddbb84328d1ef5965e0ae807a](https://github.com/goharanwar/uiautomator/commit/718e6aab3840562ddbb84328d1ef5965e0ae807a))
+
+### Update
+
+* Updated packages ([202c454f9cd57741d70cfad9d6083af8bf522782](https://github.com/goharanwar/uiautomator/commit/202c454f9cd57741d70cfad9d6083af8bf522782))
+
+
+
 <a name="2.4.0"></a>
 # [2.4.0](https://github.com/goharanwar/uiautomator/compare/2.3.0...2.4.0) (2018-10-17)
 
