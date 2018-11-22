@@ -20,14 +20,19 @@ class Server {
   constructor (newOptions) {
 
     this.options = Object.assign({}, defaultOptions, newOptions);
-    this.url = url.format({ protocol: 'http', hostname: this.options.hostname, port: this.options.port });
+    this.url = url.format({
+      protocol: 'http',
+      hostname: this.options.hostname,
+      port: this.options.port
+    });
     this.jsonrpc_url = url.resolve(this.url, '/jsonrpc/0');
     this.stop_url = url.resolve(this.url, '/stop');
     this._counter = 0;
     this._setup = new Setup(
       [
         getPath('../libs/app-uiautomator.apk'),
-        getPath('../libs/app-uiautomator-test.apk')],
+        getPath('../libs/app-uiautomator-test.apk')
+      ],
       this.options
     );
     this._connectionTries = 0;
@@ -60,7 +65,7 @@ class Server {
 
     } catch (error) {
 
-      throw new Error(`uiautomator-server: Failed to stop uiautomator json-prc server on device ${error.message || error}`);
+      throw new Error(`uiautomator-server: Failed to stop uiautomator json-rpc server on device ${error.message || error}`);
 
     }
 
@@ -82,7 +87,7 @@ class Server {
       if (this._connectionTries > this.options.connectionMaxTries) {
 
         this._connectionTries = 0;
-        throw new Error(`uiautomator-server: Failed to start json-prc server on device`);
+        throw new Error(`uiautomator-server: Failed to start json-rpc server on device`);
 
       } else {
 
@@ -129,7 +134,9 @@ class Server {
       };
       const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
       await delay(this.options.commadsExecutionDelay);
-      const response = await this._post({ json: params });
+      const response = await this._post({
+        json: params
+      });
       return response;
 
     } catch (error) {
