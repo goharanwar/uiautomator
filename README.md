@@ -6,11 +6,10 @@
 [![GitHub license](https://img.shields.io/github/license/goharanwar/uiautomator.svg)](https://github.com/goharanwar/uiautomator/blob/master/LICENSE)
 [![Twitter](https://img.shields.io/twitter/url/https/github.com/goharanwar/uiautomator.svg?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2Fgoharanwar%2Fuiautomator)
 
-
 Light weight and robust NodeJS wrapper for UIAutomator2 with builtin server for device.
 It works on Android 4.1+ simply with Android device attached via adb, no need to install anything on Android device.
 
-*Note: This module is using UIAutomator version 2.1.3*
+_Note: This module is using UIAutomator version 2.1.3_
 
 ## Installation
 
@@ -28,7 +27,6 @@ await device.connect();
 await device.click({description: 'Apps'});
 const deviceInfo = await device.info();
 console.log(deviceInfo);
-
 ```
 
 ## Device setup
@@ -41,7 +39,6 @@ const options = {
 
 const device = new UIAutomator(options);
 await device.connect(); // This will start the uiautomator server on device. Now you can continue calling the api
-
 ```
 
 **Default options:**
@@ -58,12 +55,11 @@ These are the default options. You can override them as needed
     connectionTriesDelay: 1000, // In ms
     serial: undefined //Not necessary if there is only one device available
 }
-
 ```
 
 ### API
 
-* Device connect
+-   Device connect
 
     ```javascript
     /* @param {Boolean} keepApks - Optional. Send true if you dont want to uninstall existing uiautomator-server apks on device. Default value is false. If false, it will remove the existing uiautomator-server apks (if any) and reinstall them
@@ -71,7 +67,8 @@ These are the default options. You can override them as needed
      */
     device.connect(keepApks);
     ```
-* Device info
+
+-   Device info
 
     ```javascript
     /*
@@ -79,8 +76,10 @@ These are the default options. You can override them as needed
      */
     device.info();
     ```
-* Stop UIAutomator on device
-    ``` javascript
+
+-   Stop UIAutomator on device
+
+    ```javascript
     /* Kills the uiautomator process on device
      * @param {Boolean} keepApks - Optional. Send true if you dont want to uninstall existing uiautomator-server apks on device. Default value is false. If false, it will remove the existing uiautomator-server apks (if any) on stop.
      * @returns {Promise}
@@ -88,7 +87,7 @@ These are the default options. You can override them as needed
     device.stop(keepApks);
     ```
 
-* UI Heirarchy Dump
+-   UI Heirarchy Dump
 
     ```javascript
     /* @param {Boolean} compressed - Whether you want compressed xml
@@ -100,7 +99,7 @@ These are the default options. You can override them as needed
     const xmlDumpString = await device.dump(false);
     ```
 
-* Take Screenshot
+-   Take Screenshot
 
     ```javascript
     /* @param {String} fileName - Target file name with extension
@@ -112,107 +111,110 @@ These are the default options. You can override them as needed
     device.screenshot('screenshot.png', 1, 100, saveInExternalStorage);
     //You will have to pull the screenshot file manually using adb
     ```
-* Key events
+
+-   Key events
+
     ```javascript
     //Press home
     device.home()
     //Press back
     device.back()
     ```
-  * All key functions:
 
-    * `home`
-    * `back`
-    * `left`
-    * `right`
-    * `up`
-    * `down`
-    * `center`
-    * `menu`
-    * `search`
-    * `enter`
-    * `delete`
-    * `recent`(recent apps)
-    * `volumeUp`
-    * `volumeDown`
-    * `volumeMute`
-    * `camera`
-    * `power`
+    -   All key functions:
 
-* Click the screen
+        -   `home`
+        -   `back`
+        -   `left`
+        -   `right`
+        -   `up`
+        -   `down`
+        -   `center`
+        -   `menu`
+        -   `search`
+        -   `enter`
+        -   `delete`
+        -   `recent`(recent apps)
+        -   `volumeUp`
+        -   `volumeDown`
+        -   `volumeMute`
+        -   `camera`
+        -   `power`
 
-  ```javascript
-  // click (x, y) on screen
-  device.click(x, y);
-  ```
+-   Click the screen
 
-* Swipe
+    ```javascript
+    // click (x, y) on screen
+    device.click(x, y);
+    ```
 
-  ```javascript
-  // swipe from (startX, startY) to (endX, endY)
-  device.swipe(startX, startY, endX, endY)
-  // swipe from (startX, startY) to (endX, endY) with 10 steps
-  const steps = 10
-  device.swipe(startX, startY, endX, endY, steps)
-  ```
+-   Swipe
 
-* Drag
+    ```javascript
+    // swipe from (startX, startY) to (endX, endY)
+    device.swipe(startX, startY, endX, endY)
+    // swipe from (startX, startY) to (endX, endY) with 10 steps
+    const steps = 10
+    device.swipe(startX, startY, endX, endY, steps)
+    ```
 
-  ```javascript
-  // drag from (startX, startY) to (endX, endY)
-  device.drag(startX, startY, endX, endY)
-  // drag from (startX, startY) to (endX, endY) with 10 steps
-  const steps = 10
-  device.drag(startX, startY, endX, endY, steps)
-  ```
+-   Drag
 
-* Selectors
+    ```javascript
+    // drag from (startX, startY) to (endX, endY)
+    device.drag(startX, startY, endX, endY)
+    // drag from (startX, startY) to (endX, endY) with 10 steps
+    const steps = 10
+    device.drag(startX, startY, endX, endY, steps)
+    ```
+
+-   Selectors
     ```javascript
     device.click({description: 'Apps'});
     ```
-  * Supported Selectors:
-    * `text`
-    * `textContains`
-    * `textMatches`
-    * `textStartsWith`
-    * `className`
-    * `classNameMatches`
-    * `description`
-    * `descriptionContains`
-    * `descriptionMatches`
-    * `descriptionStartsWith`
-    * `checkable`
-    * `checked`
-    * `clickable`
-    * `longClickable`
-    * `scrollable`
-    * `enabled`
-    * `focusable`
-    * `focused`
-    * `selected`
-    * `packageName`
-    * `packageNameMatches`
-    * `resourceId`
-    * `resourceIdMatches`
-    * `index`
-    * `instance`
-* Methods
+    -   Supported Selectors:
+        -   `text`
+        -   `textContains`
+        -   `textMatches`
+        -   `textStartsWith`
+        -   `className`
+        -   `classNameMatches`
+        -   `description`
+        -   `descriptionContains`
+        -   `descriptionMatches`
+        -   `descriptionStartsWith`
+        -   `checkable`
+        -   `checked`
+        -   `clickable`
+        -   `longClickable`
+        -   `scrollable`
+        -   `enabled`
+        -   `focusable`
+        -   `focused`
+        -   `selected`
+        -   `packageName`
+        -   `packageNameMatches`
+        -   `resourceId`
+        -   `resourceIdMatches`
+        -   `index`
+        -   `instance`
+-   Methods
     ```javascript
     device.openNotification();
     ```
-  * Supported Methods:
-    * `wakeUp`
-    * `sleep`
-    * `openNotification`
-    * `openQuickSettings`
-    * `isScreenOn`
+    -   Supported Methods:
+        -   `wakeUp`
+        -   `sleep`
+        -   `openNotification`
+        -   `openQuickSettings`
+        -   `isScreenOn`
 
 ## Notes
 
-* More functions coming soon. Create ticket on github if you want some functionality on priority basis. You are welcome if you want to make contributions!
-* Android [uiautomator](https://developer.android.com/training/testing/ui-testing/index.html) works on Android 4.1+, so before using it, make sure your device is Android4.1+.
-* Some methods are only working on Android 4.2/4.3, so you'd better read detailed [java documentation of uiautomator](http://developer.android.com/tools/help/uiautomator/index.html) before using it.
-* The package uses [uiautomator-jsonrpc-server](https://github.com/goharanwar/android-uiautomator-server) as its daemon to communicate with devices.
+-   More functions coming soon. Create ticket on github if you want some functionality on priority basis. You are welcome if you want to make contributions!
+-   Android [uiautomator](https://developer.android.com/training/testing/ui-testing/index.html) works on Android 4.1+, so before using it, make sure your device is Android4.1+.
+-   Some methods are only working on Android 4.2/4.3, so you'd better read detailed [java documentation of uiautomator](http://developer.android.com/tools/help/uiautomator/index.html) before using it.
+-   The package uses [uiautomator-jsonrpc-server](https://github.com/goharanwar/android-uiautomator-server) as its daemon to communicate with devices.
 
 ### Acknowledgement
 
