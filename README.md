@@ -42,7 +42,7 @@ const device = new UIAutomator(options);
 await device.connect(); // This will start the uiautomator server on device. Now you can continue calling the api
 ```
 
-**Default options:**
+### Default options:
 
 These are the default options. You can override them as needed
 
@@ -170,10 +170,13 @@ These are the default options. You can override them as needed
     ```
 
 -   Selectors
+
     ```javascript
     device.click({description: 'Apps'});
     ```
+
     -   Supported Selectors:
+
         -   `text`
         -   `textContains`
         -   `textMatches`
@@ -199,6 +202,7 @@ These are the default options. You can override them as needed
         -   `resourceIdMatches`
         -   `index`
         -   `instance`
+
 -   Methods
     ```javascript
     device.openNotification();
