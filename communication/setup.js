@@ -1,4 +1,3 @@
-
 const proc = require('child_process');
 
 class Setup {
@@ -14,18 +13,10 @@ class Setup {
 
   async init (keepApks) {
 
-    try {
-
-      this._installIfNecessary(keepApks);
-      this._forward();
-      this._start();
-      return true;
-
-    } catch (error) {
-
-      throw new Error(error);
-
-    }
+    this._installIfNecessary(keepApks);
+    this._forward();
+    this._start();
+    return true;
 
   }
 
@@ -76,10 +67,12 @@ class Setup {
       hasTestApp |= pkg.indexOf('com.github.uiautomator.test') >= 0;
 
     }
-    return {
+    const appStatus = {
       app: hasApp,
       testApp: hasTestApp
+
     };
+    return appStatus;
 
   }
 
@@ -118,7 +111,8 @@ class Setup {
   _start () {
 
     this._uiautomator_process = proc.spawn('adb', this._serialArr().concat(['shell', 'am', 'instrument', '-w',
-      'com.github.uiautomator.test/android.support.test.runner.AndroidJUnitRunner']));
+      'com.github.uiautomator.test/android.support.test.runner.AndroidJUnitRunner'
+    ]));
 
   }
 
