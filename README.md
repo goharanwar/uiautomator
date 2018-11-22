@@ -1,5 +1,6 @@
 # uiautomator
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/e8d1f9375650459eaf91d889f2183a4e)](https://app.codacy.com/app/goharanwar/uiautomator?utm_source=github.com&utm_medium=referral&utm_content=goharanwar/uiautomator&utm_campaign=Badge_Grade_Dashboard)
 [![Build Status](https://travis-ci.org/goharanwar/uiautomator.svg?branch=master)](https://travis-ci.org/goharanwar/uiautomator)
 [![npm version](https://badge.fury.io/js/uiautomator-server.svg)](https://badge.fury.io/js/uiautomator-server)
 [![GitHub issues](https://img.shields.io/github/issues/goharanwar/uiautomator.svg)](https://github.com/goharanwar/uiautomator/issues)
