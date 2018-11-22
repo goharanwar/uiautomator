@@ -1,3 +1,11 @@
+<a name="2.4.4"></a>
+
+## [2.4.4](https://github.com/goharanwar/uiautomator/compare/2.4.3...2.4.4) (2018-11-22)
+
+### Fix
+
+-   Fixed the log which was saying rpc instead of prc ([b0a798710d23f9088abc263a936d588771e7c9dd](https://github.com/goharanwar/uiautomator/commit/b0a798710d23f9088abc263a936d588771e7c9dd))
+
 <a name="2.4.3"></a>
 
 ## [2.4.3](https://github.com/goharanwar/uiautomator/compare/2.4.2...2.4.3) (2018-11-22)
