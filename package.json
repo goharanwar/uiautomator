@@ -1,6 +1,6 @@
 {
   "name": "uiautomator-server",
-  "version": "2.4.1",
+  "version": "2.4.2",
   "description": "NodeJS UiAutomator2 wrapper with built in server ",
   "main": "index.js",
   "scripts": {

@@ -1,3 +1,13 @@
+<a name="2.4.2"></a>
+## [2.4.2](https://github.com/goharanwar/uiautomator/compare/2.4.1...2.4.2) (2018-11-22)
+
+
+### Update
+
+* Added travis CI, updated change log linting rules ([9387a852b59833317f1e35e401979e15a158a851](https://github.com/goharanwar/uiautomator/commit/9387a852b59833317f1e35e401979e15a158a851))
+
+
+
 <a name="2.4.1"></a>
 ## [2.4.1](https://github.com/goharanwar/uiautomator/compare/2.4.0...2.4.1) (2018-11-21)
 
