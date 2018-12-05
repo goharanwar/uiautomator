@@ -6,7 +6,7 @@ const Setup = require('./setup');
 
 const defaultOptions = {
   hostname: 'localhost',
-  commadsExecutionDelay: 10,
+  commandsExecutionDelay: 10,
   port: 9008,
   devicePort: 9008,
   connectionMaxTries: 5,
@@ -77,7 +77,16 @@ class Server {
 
       const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
       await delay(this.options.connectionTriesDelay);
-      const isAlive = await this.isAlive();
+      let isAlive = false;
+      try {
+
+        isAlive = await this.isAlive();
+
+      } catch (error) {
+
+        throw new Error(`uiautomator-server: Verify Connection -> Error occured while checking if connection is alive ${error.message || error}`);
+
+      }
       if (isAlive) {
 
         this._connectionTries = 0;
@@ -87,7 +96,7 @@ class Server {
       if (this._connectionTries > this.options.connectionMaxTries) {
 
         this._connectionTries = 0;
-        throw new Error(`uiautomator-server: Failed to start json-rpc server on device`);
+        throw new Error(`uiautomator-server: Failed to start json-rpc server on device. Maximum connection retries limit reached`);
 
       } else {
 
@@ -133,7 +142,7 @@ class Server {
         id: this._counter
       };
       const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
-      await delay(this.options.commadsExecutionDelay);
+      await delay(this.options.commandsExecutionDelay);
       const response = await this._post({
         json: params
       });
@@ -141,7 +150,7 @@ class Server {
 
     } catch (error) {
 
-      throw new Error(error);
+      throw new Error(`Error occured while sending post command to server on device ${error.message || error}`);
 
     }
 

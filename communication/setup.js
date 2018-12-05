@@ -39,12 +39,20 @@ class Setup {
 
   installApks () {
 
-    for (const index in this._apks) {
+    try {
 
-      proc.execSync(['adb']
-        .concat(this._serialArr())
-        .concat(['install -t -r'])
-        .concat([this._apks[index]]).join(' '));
+      for (const index in this._apks) {
+
+        proc.execSync(['adb']
+          .concat(this._serialArr())
+          .concat(['install -t -r'])
+          .concat([this._apks[index]]).join(' '));
+
+      }
+
+    } catch (error) {
+
+      throw new Error(`uiautomator-server: Error occured while installing APKs on device ${error.message || error}`);
 
     }
 
@@ -52,67 +60,99 @@ class Setup {
 
   getInstalledApks () {
 
-    const packages = new String(proc.execSync(['adb']
-      .concat(this._serialArr())
-      .concat(['shell pm list packages'])
-      .join(' ')))
-      .split('\n');
+    try {
 
-    let hasApp = false;
-    let hasTestApp = false;
-    for (const i in packages) {
+      const packages = new String(proc.execSync(['adb']
+        .concat(this._serialArr())
+        .concat(['shell pm list packages'])
+        .join(' ')))
+        .split('\n');
 
-      const pkg = packages[i];
-      hasApp |= pkg.indexOf('com.github.uiautomator') >= 0;
-      hasTestApp |= pkg.indexOf('com.github.uiautomator.test') >= 0;
+      let hasApp = false;
+      let hasTestApp = false;
+      for (const i in packages) {
+
+        const pkg = packages[i];
+        hasApp |= pkg.indexOf('com.github.uiautomator') >= 0;
+        hasTestApp |= pkg.indexOf('com.github.uiautomator.test') >= 0;
+
+      }
+      const appStatus = {
+        app: hasApp,
+        testApp: hasTestApp
+
+      };
+      return appStatus;
+
+    } catch (error) {
+
+      throw new Error(`uiautomator-server: Error occured while getting installed APKs ${error.message || error}`);
 
     }
-    const appStatus = {
-      app: hasApp,
-      testApp: hasTestApp
-
-    };
-    return appStatus;
 
   }
 
   removeAlreadyInstalledApks (app, testApp) {
 
-    if (app) {
+    try {
 
-      proc.execSync(['adb']
-        .concat(this._serialArr())
-        .concat(['shell pm uninstall com.github.uiautomator'])
-        .join(' '));
+      if (app) {
+
+        proc.execSync(['adb']
+          .concat(this._serialArr())
+          .concat(['shell pm uninstall com.github.uiautomator'])
+          .join(' '));
+
+      }
+
+      if (testApp) {
+
+        proc.execSync(['adb']
+          .concat(this._serialArr())
+          .concat(['shell pm uninstall com.github.uiautomator.test'])
+          .join(' '));
+
+      }
+
+      return true;
+
+    } catch (error) {
+
+      throw new Error(`uiautomator-server: Error occured while uninstalling APKs from device ${error.message || error}`);
 
     }
-
-    if (testApp) {
-
-      proc.execSync(['adb']
-        .concat(this._serialArr())
-        .concat(['shell pm uninstall com.github.uiautomator.test'])
-        .join(' '));
-
-    }
-
-    return true;
 
   }
 
   _forward () {
 
-    proc.execSync(['adb']
-      .concat(this._serialArr())
-      .concat(['forward', `tcp:${this._port}`, `tcp:${this._devicePort}`]).join(' '));
+    try {
+
+      proc.execSync(['adb']
+        .concat(this._serialArr())
+        .concat(['forward', `tcp:${this._port}`, `tcp:${this._devicePort}`]).join(' '));
+
+    } catch (error) {
+
+      throw new Error(`uiautomator-server: Error occured while forwarding tcp port ${error.message || error}`);
+
+    }
 
   }
 
   _start () {
 
-    this._uiautomator_process = proc.spawn('adb', this._serialArr().concat(['shell', 'am', 'instrument', '-w',
-      'com.github.uiautomator.test/android.support.test.runner.AndroidJUnitRunner'
-    ]));
+    try {
+
+      this._uiautomator_process = proc.spawn('adb', this._serialArr().concat(['shell', 'am', 'instrument', '-w',
+        'com.github.uiautomator.test/android.support.test.runner.AndroidJUnitRunner'
+      ]));
+
+    } catch (error) {
+
+      throw new Error(`uiautomator-server: Error occured while starting test app ${error.message || error}`);
+
+    }
 
   }
 

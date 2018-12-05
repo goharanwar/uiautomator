@@ -49,7 +49,7 @@ These are the default options. You can override them as needed
 ```javascript
 {
     hostname: 'localhost',
-    commadsExecutionDelay: 10, //Delay between commands in ms
+    commandsExecutionDelay: 10, //Delay between commands in ms
     port: 9008,
     devicePort: 9008,
     connectionMaxTries: 5,
