@@ -1,12 +1,18 @@
-<a name="2.4.5"></a>
-## [2.4.5](https://github.com/goharanwar/uiautomator/compare/2.4.4...2.4.5) (2018-12-05)
+<a name="2.5.0"></a>
 
+# [2.5.0](https://github.com/goharanwar/uiautomator/compare/2.4.5...2.5.0) (2018-12-11)
 
 ### Update
 
-* Added more useful logs on different exceptions. Corrected misspelled options field commadsExecutionDelay to commandsExecutionDelay ([e0ba252b0ba0d85e0d4975d70b54dcbcd05481a8](https://github.com/goharanwar/uiautomator/commit/e0ba252b0ba0d85e0d4975d70b54dcbcd05481a8))
+-   Added new functions: ([a5cf449bf155d41b60ecee8e088f00c3fab6077b](https://github.com/goharanwar/uiautomator/commit/a5cf449bf155d41b60ecee8e088f00c3fab6077b))
 
+<a name="2.4.5"></a>
 
+## [2.4.5](https://github.com/goharanwar/uiautomator/compare/2.4.4...2.4.5) (2018-12-05)
+
+### Update
+
+-   Added more useful logs on different exceptions. Corrected misspelled options field commadsExecutionDelay to commandsExecutionDelay ([e0ba252b0ba0d85e0d4975d70b54dcbcd05481a8](https://github.com/goharanwar/uiautomator/commit/e0ba252b0ba0d85e0d4975d70b54dcbcd05481a8))
 
 <a name="2.4.4"></a>
 
