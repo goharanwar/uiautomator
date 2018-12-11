@@ -203,6 +203,132 @@ These are the default options. You can override them as needed
         -   `index`
         -   `instance`
 
+-   Methods that work with Selectors:
+
+    -   waitForExists
+
+        Waits a specified length of time for a view to become visible. This method waits until the view becomes visible on the display, or until the timeout has elapsed. You can use this method in situations where the content that you want to select is not immediately displayed.
+
+        ```javascript
+        /*
+        *
+        * @params selectorObject
+        * @params timeout
+        * @returns true or false
+        */
+        waitForExists(selectorObject, timeout)
+
+        // Example:
+        await device.waitForExists(
+            {
+                description: 'Back',
+                className: "android.widget.ImageView",
+                package: "com.android.systemui",
+                resourceId: "com.android.systemui:id/back"
+            });
+        ```
+
+    -   waitForIdle
+
+        Waits for the current application to idle.
+
+        ```javascript
+        /*
+        *
+        * @param timeout in milliseconds
+        */
+        waitForIdle(timeout)
+
+        // Example:
+        await device.waitForIdle( 1000 );
+        ```
+
+    -   waitUntilGone
+
+        Waits a specified length of time for a view to become undetectable. This method waits until a view is no longer matchable, or until the timeout has elapsed. A view becomes undetectable when the Selector of the object is unable to find a match because the element has either changed its state or is no longer displayed. You can use this method when attempting to wait for some long operation to complete, such as downloading a large file or connecting to a remote server.
+
+        ```javascript
+        /*
+        * @param selectorObject the target ui object
+        * @param timeout time to wait (in milliseconds)
+        * @return true if the element is gone before timeout elapsed, else false if timeout elapsed but a matching element is still found.
+        */
+        waitUntilGone(selectorObject, timeout)
+
+        // Example:
+        await device.waitUntilGone(
+            {
+               text: "Open menu" 
+            }, 5000);
+        ```
+
+    -   scrollTo
+
+        Perform a scroll forward action to move through the scrollable layout element until a visible item that matches the selector is found.
+
+        ```javascript
+        /*
+        * @param scrollableObject        the selector of the scrollable object
+        * @param targetObj  the item matches the selector to be found.
+        * @param isVertical vertical or horizontal
+        * @return true on scrolled, else false
+        */
+        scrollTo (scrollableObject, targetObj, isVertical)
+
+        // Example:
+        await device.scrollTo(
+            {
+                description: 'My Scroll View',
+                
+            },{
+                text: 'My text element'
+            },
+            true
+            );
+        ```
+
+    -   clearTextField
+
+        Clears the existing text contents in an editable field. The selector of this object must reference a UI element that is editable. When you call this method, the method first sets focus at the start edge of the field. The method then simulates a long-press to select the existing text, and deletes the selected text. If a "Select-All" option is displayed, the method will automatically attempt to use it to ensure full text selection. Note that it is possible that not all the text in the field is selected; for example, if the text contains separators such as spaces, slashes, at symbol etc. Also, not all editable fields support the long-press functionality.
+
+        ```javascript
+        /*
+        *
+        * @param selectorObject the selector JSON object containing element properties
+        */
+        clearTextField (selectorObject)
+
+        // Example:
+        await device.clearTextField(
+            {
+                text: 'Enter email here'
+            });
+        ```
+
+    -   exist
+
+        Check if view exists. This methods performs a waitForExists(timeout) with zero timeout. This basically returns immediately whether the view represented by this UiObject exists or not.
+
+        ```javascript
+        /*
+        *
+        * @params selectorObject
+        * @params timeout
+        * @returns true or false
+        */
+        exist (selectorObject)
+
+        // Example:
+        await device.exist(
+            {
+                description: 'Back',
+                className: "android.widget.ImageView",
+                package: "com.android.systemui",
+                resourceId: "com.android.systemui:id/back"
+            });
+        ```
+
+
 -   Methods
     ```javascript
     device.openNotification();
