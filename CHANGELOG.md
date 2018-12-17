@@ -1,3 +1,11 @@
+<a name="2.6.0"></a>
+
+# [2.6.0](https://github.com/goharanwar/uiautomator/compare/2.5.0...2.6.0) (2018-12-17)
+
+### Update
+
+-   Added pressKeyCode function ([57042490c5d5190fe271f45d31495e130c5c94f9](https://github.com/goharanwar/uiautomator/commit/57042490c5d5190fe271f45d31495e130c5c94f9))
+
 <a name="2.5.0"></a>
 
 # [2.5.0](https://github.com/goharanwar/uiautomator/compare/2.4.5...2.5.0) (2018-12-11)
