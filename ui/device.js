@@ -178,6 +178,24 @@ class Device {
     return this._server.send('freezeRotation', [freeze]);
 
   }
+  /**
+   * Simulates a short press using a key code. See Android KeyEvent.
+   *
+   * @param keyCode the key code of the event.
+   * @param metaState an integer in which each bit set to 1 represents a pressed meta key
+   * @return true if successful, else return false
+   */
+  pressKeyCode (keyCode, metaState) {
+
+    if (metaState) {
+
+      return this._server.send('pressKeyCode', [keyCode, metaState]);
+
+    }
+
+    return this._server.send('pressKeyCode', [keyCode]);
+
+  }
 
   _register (methods, prefix) {
 
