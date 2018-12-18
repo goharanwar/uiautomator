@@ -1,3 +1,11 @@
+<a name="2.7.0"></a>
+
+# [2.7.0](https://github.com/goharanwar/uiautomator/compare/2.6.0...2.7.0) (2018-12-18)
+
+### Update
+
+-   Added new functionality to enable and disable keyboard ([733dcff13e7297fb6c30f638ebd0217862616bd6](https://github.com/goharanwar/uiautomator/commit/733dcff13e7297fb6c30f638ebd0217862616bd6))
+
 <a name="2.6.0"></a>
 
 # [2.6.0](https://github.com/goharanwar/uiautomator/compare/2.5.0...2.6.0) (2018-12-17)
