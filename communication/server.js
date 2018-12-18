@@ -10,7 +10,10 @@ const defaultOptions = {
   port: 9008,
   devicePort: 9008,
   connectionMaxTries: 5,
-  connectionTriesDelay: 1000
+  connectionTriesDelay: 1000,
+  unicodeKeyboard: false,
+  resetKeyboard: false
+
 };
 
 const getPath = relativePath => path.join(path.dirname(fs.realpathSync(__filename)), relativePath);
@@ -33,7 +36,8 @@ class Server {
         getPath('../libs/app-uiautomator.apk'),
         getPath('../libs/app-uiautomator-test.apk')
       ],
-      this.options
+      this.options,
+      getPath('../libs/UnicodeIME-debug.apk')
     );
     this._connectionTries = 0;
 
@@ -58,7 +62,13 @@ class Server {
 
         const installedApps = this._setup.getInstalledApks();
 
-        this._setup.removeAlreadyInstalledApks(installedApps.app, installedApps.testApp);
+        this._setup.removeAlreadyInstalledApks(installedApps.app, installedApps.testApp, installedApps.keyboardApp);
+
+      }
+
+      if (this.options.resetKeyboard) {
+
+        await this._setup.disableUnicodeKeyboard();
 
       }
       return true;
@@ -66,6 +76,34 @@ class Server {
     } catch (error) {
 
       throw new Error(`uiautomator-server: Failed to stop uiautomator json-rpc server on device ${error.message || error}`);
+
+    }
+
+  }
+
+  async enableKeyboard () {
+
+    try {
+
+      await this._setup.disableUnicodeKeyboard();
+
+    } catch (error) {
+
+      throw new Error(`Failed to enable keyboard: ${error}`);
+
+    }
+
+  }
+
+  async disableKeyboard () {
+
+    try {
+
+      await this._setup.enableUnicodeKeyboard();
+
+    } catch (error) {
+
+      throw new Error(`Failed to disable keyboard: ${error}`);
 
     }
 
@@ -84,7 +122,7 @@ class Server {
 
       } catch (error) {
 
-        throw new Error(`uiautomator-server: Verify Connection -> Error occured while checking if connection is alive ${error.message || error}`);
+        throw new Error(`uiautomator-server: Verify Connection - > Error occured while checking if connection is alive ${error.message || error}`);
 
       }
       if (isAlive) {
@@ -96,7 +134,7 @@ class Server {
       if (this._connectionTries > this.options.connectionMaxTries) {
 
         this._connectionTries = 0;
-        throw new Error(`uiautomator-server: Failed to start json-rpc server on device. Maximum connection retries limit reached`);
+        throw new Error(`uiautomator-server: Failed to start json - rpc server on device.Maximum connection retries limit reached `);
 
       } else {
 

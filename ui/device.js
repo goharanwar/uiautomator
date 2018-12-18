@@ -29,6 +29,18 @@ class Device {
 
   }
 
+  disableKeyboard () {
+
+    return this._server.disableKeyboard();
+
+  }
+
+  enableKeyboard () {
+
+    return this._server.enableKeyboard();
+
+  }
+
   isConnected () {
 
     return this._server.isAlive();

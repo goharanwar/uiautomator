@@ -2,12 +2,15 @@ const proc = require('child_process');
 
 class Setup {
 
-  constructor (apks, options) {
+  constructor (apks, options, keyboardApk) {
 
     this._apks = apks;
     this._port = options.port;
     this._devicePort = options.devicePort;
     this._serial = options.serial;
+    this._keyboardApk = keyboardApk;
+    this._installKeyboard = options.unicodeKeyboard;
+    this._resetKeyboard = options.resetKeyboard;
 
   }
 
@@ -27,17 +30,17 @@ class Setup {
     if (!keepApks) {
 
       this.removeAlreadyInstalledApks(installedApps.app, installedApps.testApp);
-      this.installApks();
+      this.installApks(installedApps);
 
     } else if (!installedApps.app || !installedApps.testApp) {
 
-      this.installApks();
+      this.installApks(installedApps);
 
     }
 
   }
 
-  installApks () {
+  installApks (installedApps) {
 
     try {
 
@@ -49,6 +52,16 @@ class Setup {
           .concat([this._apks[index]]).join(' '));
 
       }
+      if (this._installKeyboard && !installedApps.keyboardApp) {
+
+        proc.execSync(['adb']
+          .concat(this._serialArr())
+          .concat(['install -t -r'])
+          .concat([this._keyboardApk]).join(' '));
+
+      }
+
+      this.enableUnicodeKeyboard();
 
     } catch (error) {
 
@@ -70,16 +83,19 @@ class Setup {
 
       let hasApp = false;
       let hasTestApp = false;
+      let hasKeyboardApp = false;
       for (const i in packages) {
 
         const pkg = packages[i];
         hasApp |= pkg.indexOf('com.github.uiautomator') >= 0;
         hasTestApp |= pkg.indexOf('com.github.uiautomator.test') >= 0;
+        hasKeyboardApp |= pkg.indexOf('io.appium.android.ime') >= 0;
 
       }
       const appStatus = {
         app: hasApp,
-        testApp: hasTestApp
+        testApp: hasTestApp,
+        keyboardApp: hasKeyboardApp
 
       };
       return appStatus;
@@ -92,7 +108,7 @@ class Setup {
 
   }
 
-  removeAlreadyInstalledApks (app, testApp) {
+  removeAlreadyInstalledApks (app, testApp, keyboardApp) {
 
     try {
 
@@ -114,6 +130,15 @@ class Setup {
 
       }
 
+      if (keyboardApp) {
+
+        proc.execSync(['adb']
+          .concat(this._serialArr())
+          .concat(['shell pm uninstall io.appium.android.ime'])
+          .join(' '));
+
+      }
+
       return true;
 
     } catch (error) {
@@ -121,6 +146,29 @@ class Setup {
       throw new Error(`uiautomator-server: Error occured while uninstalling APKs from device ${error.message || error}`);
 
     }
+
+  }
+
+  disableUnicodeKeyboard () {
+
+    proc.execSync(['adb']
+      .concat(this._serialArr())
+      .concat(['shell ime disable io.appium.android.ime/.UnicodeIME'])
+      .join(' '));
+
+  }
+
+  enableUnicodeKeyboard () {
+
+    proc.execSync(['adb']
+      .concat(this._serialArr())
+      .concat(['shell ime enable io.appium.android.ime/.UnicodeIME'])
+      .join(' '));
+
+    proc.execSync(['adb']
+      .concat(this._serialArr())
+      .concat(['shell ime set io.appium.android.ime/.UnicodeIME'])
+      .join(' '));
 
   }
 
