@@ -1,3 +1,13 @@
+<a name="2.8.0"></a>
+# [2.8.0](https://github.com/goharanwar/uiautomator/compare/2.7.0...2.8.0) (2019-04-16)
+
+
+### Update
+
+* Added support for function 'clickAndWaitForNewWindow' ([9650e9b8dbe480e30cb8cfa8d4006eac17b7f751](https://github.com/goharanwar/uiautomator/commit/9650e9b8dbe480e30cb8cfa8d4006eac17b7f751))
+
+
+
 <a name="2.7.0"></a>
 
 # [2.7.0](https://github.com/goharanwar/uiautomator/compare/2.6.0...2.7.0) (2018-12-18)
