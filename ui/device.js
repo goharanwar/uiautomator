@@ -2,9 +2,7 @@ const humps = require('humps');
 const Server = require('../communication');
 const Selector = require('./selector');
 
-const pressKeyMethods = ['home', 'volumeUp', 'volumeDown', 'volumeMute', 'back', 'right', 'left',
-  'up', 'down', 'menu', 'search', 'center', 'enter', 'delete', 'recent', 'camera', 'power'
-];
+const pressKeyMethods = ['home', 'volumeUp', 'volumeDown', 'volumeMute', 'back', 'right', 'left', 'up', 'down', 'menu', 'search', 'center', 'enter', 'delete', 'recent', 'camera', 'power'];
 const aloneMethods = ['wakeUp', 'sleep', 'openNotification', 'openQuickSettings', 'isScreenOn'];
 
 class Device {
@@ -60,15 +58,31 @@ class Device {
 
   }
 
+  /**
+   * Performs a click at the center of the visible bounds of the UI element represented by this UiObject and waits for window transitions. This method differ from click() only in that this method waits for a a new window transition as a result of the click.
+   * Some examples of a window transition:
+   * - launching a new activity
+   * - bringing up a pop-up menu
+   * - bringing up a dialog
+   * @param selectorObject - The target ui object
+   * @param timeout - time to wait (in milliseconds)
+   * @return true if the event was triggered, else false
+   */
+  clickAndWaitForNewWindow (selectorObject, timeout) {
+
+    return this._server.send('clickAndWaitForNewWindow', [selectorObject, timeout]);
+
+  }
+
   swipe (startX, startY, endX, endY, steps) {
 
-    return this._server.send('swipe', [startX, startY, endX, endY, (steps || 100)]);
+    return this._server.send('swipe', [startX, startY, endX, endY, steps || 100]);
 
   }
 
   drag (startX, startY, endX, endY, steps) {
 
-    return this._server.send('drag', [startX, startY, endX, endY, (steps || 100)]);
+    return this._server.send('drag', [startX, startY, endX, endY, steps || 100]);
 
   }
 
@@ -86,7 +100,7 @@ class Device {
 
   screenshot (filename, scale, quality, saveInExternalStorage) {
 
-    return this._server.send('takeScreenshot', [filename, scale, quality, (saveInExternalStorage || false)]);
+    return this._server.send('takeScreenshot', [filename, scale, quality, saveInExternalStorage || false]);
 
   }
 
@@ -179,6 +193,7 @@ class Device {
     return this._server.send('setOrientation', [orientationDirection]);
 
   }
+
   /**
    * Disables the sensors and freezes the device rotation at its current rotation state, or enable it.
    *
@@ -190,6 +205,7 @@ class Device {
     return this._server.send('freezeRotation', [freeze]);
 
   }
+
   /**
    * Simulates a short press using a key code. See Android KeyEvent.
    *

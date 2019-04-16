@@ -42,7 +42,7 @@ const device = new UIAutomator(options);
 await device.connect(); // This will start the uiautomator server on device. Now you can continue calling the api
 ```
 
-### Default options:
+### Default options
 
 These are the default options. You can override them as needed
 
@@ -205,6 +205,35 @@ These are the default options. You can override them as needed
 
 -   Methods that work with Selectors:
 
+    -   clickAndWaitForNewWindow
+
+        Performs a click at the center of the visible bounds of the UI element represented by this UiObject and waits for window transitions. This method differ from click() only in that this method waits for a a new window transition as a result of the click.
+        Some examples of a window transition:
+
+        -   launching a new activity
+        -   bringing up a pop-up menu
+        -   bringing up a dialog
+              
+
+
+        ```javascript
+        /*
+        *
+        * @params selectorObject
+        * @params timeout (in milliseconds)
+        * @returns true if the event was triggered, else false
+        */
+        waitForExists(selectorObject, timeout)
+
+        // Example:
+        await device.clickAndWaitForNewWindow(
+            {
+                className: "android.widget.CheckBox",
+                instance: 0
+            });
+        ```
+
+
     -   waitForExists
 
         Waits a specified length of time for a view to become visible. This method waits until the view becomes visible on the display, or until the timeout has elapsed. You can use this method in situations where the content that you want to select is not immediately displayed.
@@ -327,7 +356,6 @@ These are the default options. You can override them as needed
                 resourceId: "com.android.systemui:id/back"
             });
         ```
-
 
 -   Methods
     ```javascript
